@@ -104,10 +104,16 @@ app.get('*', async (req, res) => {
   });
 });
 
-app.listen(PORT, () => {
-  console.log(`🚀 SSR Server running → http://localhost:${PORT}`);
-  console.log(`   Try: http://localhost:${PORT}/post/123`);
-});
+// Export for Vercel
+export default app;
+
+// Only listen if not in Vercel environment (for local dev)
+if (process.env.VERCEL !== '1') {
+  app.listen(PORT, () => {
+    console.log(`🚀 SSR Server running → http://localhost:${PORT}`);
+    console.log(`   Try: http://localhost:${PORT}/post/123`);
+  });
+}
 
 
 
